@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Greece 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pw: 560px; --ph: 396px;
+    --ink:#2a2724;
+    --paper:#f5f1e8;
+    --cover:#25476a;
+    --flip: 1.15s;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    overflow:hidden;
+    font-family:"Special Elite","American Typewriter","Courier Prime","Courier New",monospace;
+    color:var(--ink);
+    background:#063a55;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    -webkit-user-select:none;user-select:none;
+  }
+
+  /* ---------------- the ocean ---------------- */
+  .ocean{position:fixed;inset:0;overflow:hidden;z-index:-1;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 35%, rgba(120,220,235,.35), transparent 70%),
+      linear-gradient(180deg,#0b6f8f 0%,#08577a 35%,#06405f 70%,#042c45 100%);
+  }
+  .ocean .swell{position:absolute;inset:-50%;will-change:transform;}
+  .ocean .s1{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='turbulence' baseFrequency='.006 .028' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+    background-size:600px 600px;opacity:.55;mix-blend-mode:soft-light;
+    animation:drift1 38s linear infinite;
+  }
+  .ocean .s2{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='turbulence' baseFrequency='.012 .05' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .75 0 0 0 0 .95 0 0 0 0 1 0 0 0 .9 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+    background-size:500px 500px;opacity:.45;mix-blend-mode:screen;
+    animation:drift2 26s linear infinite;
+  }
+  .ocean .s3{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.02 .07' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 .1 0 0 0 0 .2 0 0 0 1.1 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+    background-size:420px 420px;opacity:.5;mix-blend-mode:multiply;
+    animation:drift3 44s linear infinite;
+  }
+  @keyframes drift1{from{transform:translate(0,0)}to{transform:translate(-600px,-120px)}}
+  @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(500px,-100px)}}
+  @keyframes drift3{from{transform:translate(0,0)}to{transform:translate(-420px,84px)}}
+  .glint{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;
+    box-shadow:0 0 6px 2px rgba(255,255,255,.7);opacity:0;animation:glint 4s ease-in-out infinite}
+  @keyframes glint{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.85;transform:scale(1)}}
+
+  /* ---------------- the book ---------------- */
+  .stage{position:relative;perspective:3200px;perspective-origin:50% 45%}
+  .book{
+    position:relative;width:calc(var(--pw)*2);height:var(--ph);
+    transform-style:preserve-3d;
+    transition:transform var(--flip) cubic-bezier(.645,.045,.355,1);
+  }
+  .book.closed-front{transform:translateX(calc(var(--pw)*-.5))}
+  .book.closed-back{transform:translateX(calc(var(--pw)*.5))}
+
+  .leaf{
+    position:absolute;top:0;left:50%;width:50%;height:100%;
+    transform-origin:0 50%;
+    transform-style:preserve-3d;
+    transition:transform var(--flip) cubic-bezier(.645,.045,.355,1);
+  }
+  .leaf.flipped{transform:rotateY(-180deg)}
+
+  .face{
+    position:absolute;inset:0;overflow:hidden;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    container-type:size;
+    background-color:var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .33 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .face.back{transform:rotateY(180deg)}
+  .face.front::before,.face.back::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:5}
+  .face.front::before{background:linear-gradient(90deg,rgba(0,0,0,.20),rgba(0,0,0,.06) 3%,transparent 8%), linear-gradient(270deg,rgba(0,0,0,.06),transparent 2%)}
+  .face.back::before{background:linear-gradient(270deg,rgba(0,0,0,.20),rgba(0,0,0,.06) 3%,transparent 8%), linear-gradient(90deg,rgba(0,0,0,.06),transparent 2%)}
+  .face::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;opacity:0;
+    transition:opacity calc(var(--flip)*.5) ease}
+  .face.front::after{background:linear-gradient(90deg,rgba(0,0,0,.28),transparent 70%)}
+  .face.back::after{background:linear-gradient(270deg,rgba(0,0,0,.22),transparent 70%)}
+  .leaf.turning .face::after{opacity:1}
+
+  .book::before,.book::after{content:"";position:absolute;top:3px;bottom:-5px;width:50%;z-index:0;
+    background:repeating-linear-gradient(180deg,#e9e3d6 0 1px,#d6cfbf 1px 2px);border-radius:2px;
+    box-shadow:0 22px 50px rgba(0,20,35,.6);transition:opacity .4s}
+  .book::before{left:-4px}
+  .book::after{right:-4px}
+  .book.closed-front::before,.book.closed-back::after{opacity:0}
+
+  /* covers */
+  .cover{
+    background-color:var(--cover);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(0,0,0,.06) 0 1px,transparent 1px 3px);
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);
+  }
+  .face.front.cover::before{background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.06) 2%,transparent 4%)}
+  .face.back.cover::before{background:linear-gradient(270deg,rgba(0,0,0,.35),rgba(255,255,255,.06) 2%,transparent 4%)}
+  .endpaper{
+    background-color:#e7dfcf;
+    background-image:
+      radial-gradient(circle at 25% 25%, rgba(37,71,106,.10) 0 2px, transparent 2.5px),
+      radial-gradient(circle at 75% 75%, rgba(37,71,106,.10) 0 2px, transparent 2.5px);
+    background-size:22px 22px;
+  }
+  .label{
+    position:absolute;left:50%;transform:translateX(-50%);
+    background:var(--paper);padding:2.4cqh 5cqh;
+    box-shadow:0 1px 3px rgba(0,0,0,.4);
+    font-size:7cqh;letter-spacing:.06em;white-space:nowrap;
+  }
+
+  /* photos: straight, as laid out in the template */
+  .ph{
+    position:absolute;display:block;padding:0;border:0;background:#ddd;cursor:zoom-in;
+    box-shadow:0 1px 1px rgba(0,0,0,.18), 0 3px 8px rgba(0,0,0,.20);
+    transition:transform .2s ease, box-shadow .2s ease;
+    z-index:1;
+  }
+  .ph img{display:block;width:100%;height:auto;pointer-events:none}
+  .ph::after{ /* the "enlarge" badge */
+    content:"";position:absolute;right:1.6cqh;bottom:1.6cqh;width:5.4cqh;height:5.4cqh;border-radius:50%;
+    background:rgba(255,255,255,.88) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a2724' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6'/%3E%3Cpath d='M15 15l5 5M10.5 8v5M8 10.5h5'/%3E%3C/svg%3E") center/62% no-repeat;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);opacity:0;transform:scale(.8);transition:opacity .2s, transform .2s;
+  }
+  .ph:hover,.ph:focus-visible{transform:translateY(-2px);box-shadow:0 2px 2px rgba(0,0,0,.18), 0 8px 18px rgba(0,0,0,.28);z-index:3;outline:none}
+  .ph:hover::after,.ph:focus-visible::after{opacity:1;transform:scale(1)}
+  @media (hover:none){ .ph::after{opacity:.8;transform:scale(.85)} }
+
+  .tw{
+    position:absolute;margin:0;
+    font-size:4.5cqh;line-height:1.5;letter-spacing:.015em;
+    color:var(--ink);
+    text-shadow:0 0 .6px rgba(42,39,36,.55);
+  }
+  .tw.small{font-size:3.8cqh}
+  .tw.center{text-align:center}
+  .tw .c{opacity:var(--o,1);display:inline-block;transform:translateY(var(--y,0));white-space:pre}
+  .tw .c.hid{visibility:hidden}
+  .tw .w{white-space:nowrap}
+  .tw.typing::after{content:"";display:inline-block;width:.08em;height:1em;background:var(--ink);vertical-align:-.12em;margin-left:.05em;animation:blink .7s steps(1) infinite}
+  .dialogue.typing::after{display:none}
+  @keyframes blink{50%{opacity:0}}
+  .dialogue .line{display:block;margin:0 0 .9em}
+  .dialogue .reply{padding-left:2.6em}
+  .pencil{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+  .pencil path{fill:none;stroke:#6d6862;stroke-width:1.1;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.85}
+  .sketch{position:absolute;mix-blend-mode:multiply;opacity:.75}
+  .pno{position:absolute;bottom:3cqh;font-size:2.8cqh;opacity:.45}
+  .front .pno{right:3cqh}.back .pno{left:3cqh}
+
+  /* ---------------- controls ---------------- */
+  .controls{margin-top:22px;display:flex;align-items:center;gap:16px;color:#eaf6f8;font-size:14px;letter-spacing:.08em;z-index:10}
+  .controls button{
+    font:inherit;color:#eaf6f8;background:rgba(0,30,50,.35);border:1px solid rgba(234,246,248,.45);
+    border-radius:999px;min-width:40px;height:40px;cursor:pointer;font-size:18px;line-height:1;padding:0 12px;
+    backdrop-filter:blur(4px);
+  }
+  .controls button:hover:not(:disabled){background:rgba(0,30,50,.6)}
+  .controls button:disabled{opacity:.3;cursor:default}
+  #where{min-width:110px;text-align:center;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+  .spotify{position:fixed;left:18px;bottom:18px;width:300px;z-index:20;border-radius:12px;overflow:hidden;
+    box-shadow:0 8px 24px rgba(0,20,35,.5)}
+  .spotify iframe{display:block;width:100%;height:80px;border:0}
+  @media (max-width:700px){.spotify{left:50%;transform:translateX(-50%);bottom:10px;width:min(300px,92vw)}}
+  .hint{margin-top:12px;color:rgba(234,246,248,.85);font-size:12.5px;letter-spacing:.08em;text-shadow:0 1px 3px rgba(0,0,0,.6);text-align:center;padding:0 12px}
+  .hint b{font-weight:normal;border-bottom:1px solid rgba(234,246,248,.5)}
+
+  /* ---------------- enlarged photo ---------------- */
+  .lightbox{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:rgba(2,22,34,.86);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s ease;cursor:zoom-out}
+  .lightbox.open{opacity:1;pointer-events:auto}
+  .lightbox img{max-width:92vw;max-height:82vh;display:block;background:#fff;padding:10px;box-shadow:0 20px 60px rgba(0,0,0,.6);
+    transform:scale(.94);transition:transform .3s ease}
+  .lightbox.open img{transform:scale(1)}
+  .lightbox .cap{margin-top:16px;color:#eaf6f8;font-size:15px;letter-spacing:.05em}
+  .lightbox .x{position:absolute;top:18px;right:22px;font:inherit;font-size:15px;color:#eaf6f8;background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 16px;cursor:pointer}
+  @media (prefers-reduced-motion:reduce){:root{--flip:.01s} .ocean .swell,.glint{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="ocean" id="ocean"><div class="swell s3"></div><div class="swell s1"></div><div class="swell s2"></div></div>
+
+<div class="stage"><div class="book closed-front" id="book">
+
+  <!-- leaf 0 : cover / inside cover -->
+  <div class="leaf">
+    <div class="face front cover">
+      <img class="ph" src="photos/R1-09986-0021.jpg" alt="Greece 2026" style="left:22%;top:12%;width:56%">
+      <div class="label" style="top:72%">Greece 2026</div>
+    </div>
+    <div class="face back endpaper"></div>
+  </div>
+
+  <!-- leaf 1 -->
+  <div class="leaf">
+    <div class="face front">
+      <p class="tw" style="left:6%;top:19%">patiently waiting</p>
+      <img class="ph" src="photos/R1-09987-0000.jpg" alt="patiently waiting" style="left:6%;top:30%;width:48%">
+      <img class="ph" src="photos/R1-09987-0002.jpg" alt="Hello, Mama!" style="left:62%;top:7%;width:30%">
+      <p class="tw" style="left:62%;top:76%">Hello, Mama!</p>
+      <span class="pno">1</span>
+    </div>
+    <div class="face back">
+      <p class="tw" style="left:7%;top:22%">“I really missed you”</p>
+      <img class="ph" src="photos/R1-09987-0009.jpg" alt="“I really missed you”" style="left:50%;top:5%;width:44%">
+      <img class="ph" src="photos/R1-09987-0023.jpg" alt="“I missed you too”" style="left:6%;top:52%;width:44%">
+      <p class="tw" style="left:56%;top:70%">“I missed you too”</p>
+      <span class="pno">2</span>
+    </div>
+  </div>
+
+  <!-- leaf 2 -->
+  <div class="leaf">
+    <div class="face front">
+      <p class="tw" style="left:7%;top:7%;width:86%">Athens – a gritty, concrete heavy city with attitude</p>
+      <img class="ph" src="photos/R1-09987-0006.jpg" alt="Athens" style="left:15%;top:22%;width:31%">
+      <img class="ph" src="photos/R1-09986-0017.jpg" alt="Athens" style="left:54%;top:22%;width:31%">
+      <span class="pno">3</span>
+    </div>
+    <div class="face back">
+      <img class="ph" src="photos/R1-09987-0017.jpg" alt="The Parthenon at night" style="left:5%;top:6%;width:40%">
+      <img class="ph" src="photos/R1-09987-0029.jpg" alt="Athens" style="left:5%;top:52%;width:40%">
+      <p class="tw" style="left:52%;top:8%;width:44%">A melange of the ancient…</p>
+      <img class="ph" src="photos/R1-09987-0032.jpg" alt="A melange of the ancient…" style="left:56%;top:22%;width:28%">
+      <span class="pno">4</span>
+    </div>
+  </div>
+
+  <!-- leaf 3 -->
+  <div class="leaf">
+    <div class="face front">
+      <p class="tw" style="left:6%;top:8%;width:44%">… and modern ruins</p>
+      <img class="ph" src="photos/R1-09987-0033.jpg" alt="… and modern ruins" style="left:13%;top:22%;width:28%">
+      <img class="ph" src="photos/R1-09987-0028.jpg" alt="Athens" style="left:55%;top:6%;width:40%">
+      <img class="ph" src="photos/R1-09987-0004.jpg" alt="Athens" style="left:55%;top:52%;width:40%">
+      <span class="pno">5</span>
+    </div>
+    <div class="face back">
+      <div class="tw dialogue small" style="left:6%;top:12%;width:42%">
+        <span class="line">“What’s going on over there? There are police everywhere.”</span>
+        <span class="line reply">– “Students are protesting lack of resources.”</span>
+        <span class="line">“Why are there at least 5 police trucks? They have gas masks and shields.”</span>
+        <span class="line reply">– “Because the police are stupid.”</span>
+      </div>
+      <img class="ph" src="photos/R1-09987-0011.jpg" alt="Athens at night" style="left:52%;top:5%;width:44%">
+      <img class="ph" src="photos/R1-09987-0012.jpg" alt="Athens at night" style="left:52%;top:51%;width:44%">
+      <span class="pno">6</span>
+    </div>
+  </div>
+
+  <!-- leaf 4 -->
+  <div class="leaf">
+    <div class="face front">
+      <img class="ph" src="photos/R1-09987-0020.jpg" alt="Athens at night" style="left:22%;top:20%;width:56%">
+      <span class="pno">7</span>
+    </div>
+    <div class="face back">
+      <svg class="pencil" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <!-- hand-drawn speech ovals + arrow, as in the template -->
+        <path d="M54 19 C54 8, 94 6, 95.5 18 C97 30, 58 32, 54.5 21"/>
+        <path d="M7 70 C6 57, 46 55, 47.5 68 C49 81, 9 83, 7.5 72"/>
+        <path d="M60 28 C52 40, 48 46, 44 57.5"/>
+        <path d="M44 57.5 L43.6 52.4 M44 57.5 L47.2 54.2"/>
+      </svg>
+      <img class="ph" src="photos/R1-09987-0030.jpg" alt="Athens" style="left:6%;top:6%;width:42%">
+      <p class="tw small center" style="left:10%;top:62%;width:34%">They’ve proven to be on the correct side of history…</p>
+      <p class="tw small center" style="left:57%;top:11%;width:36%">We shall now explore the Athenian mindset.</p>
+      <img class="ph" src="photos/R1-09987-0031.jpg" alt="Athens" style="left:53%;top:44%;width:42%">
+      <span class="pno">8</span>
+    </div>
+  </div>
+
+  <!-- leaf 5 -->
+  <div class="leaf">
+    <div class="face front">
+      <p class="tw" style="left:6%;top:8%;width:52%">… and to have an obsession with felines…</p>
+      <img class="ph" src="photos/R1-09986-0004.jpg" alt="… and to have an obsession with felines…" style="left:6%;top:30%;width:50%">
+      <img class="ph" src="photos/R1-09986-0015.jpg" alt="… and to have an obsession with felines…" style="left:63%;top:12%;width:30%">
+      <span class="pno">9</span>
+    </div>
+    <div class="face back">
+      <img class="ph" src="photos/R1-09987-0027.jpg" alt="How many cats can you spot?" style="left:23%;top:10%;width:54%">
+      <p class="tw" style="left:23%;top:68%">How many cats can you spot?</p>
+      <span class="pno">10</span>
+    </div>
+  </div>
+
+  <!-- leaf 6 -->
+  <div class="leaf">
+    <div class="face front">
+      <img class="ph" src="photos/R1-09987-0037.jpg" alt="Goodbye Athens" style="left:6%;top:5%;width:44%">
+      <img class="ph" src="photos/R1-09986-0019.jpg" alt="Hello Aegina" style="left:6%;top:52%;width:44%">
+      <p class="tw" style="left:58%;top:22%">Goodbye Athens</p>
+      <p class="tw" style="left:58%;top:70%">Hello Aegina</p>
+      <span class="pno">11</span>
+    </div>
+    <div class="face back">
+      <p class="tw" style="left:8%;top:8%;width:84%">Aegina – a romantic little island…</p>
+      <img class="ph" src="photos/R1-09986-0018.jpg" alt="Aegina" style="left:9%;top:22%;width:31%">
+      <img class="ph" src="photos/R1-09986-0016.jpg" alt="Aegina" style="left:52%;top:22%;width:31%">
+      <span class="pno">12</span>
+    </div>
+  </div>
+
+  <!-- leaf 7 -->
+  <div class="leaf">
+    <div class="face front">
+      <img class="ph" src="photos/R1-09987-0026.jpg" alt="Aegina" style="left:9%;top:10%;width:31%">
+      <img class="ph" src="photos/R1-09987-0007.jpg" alt="Aegina" style="left:50%;top:5%;width:44%">
+      <img class="ph" src="photos/R1-09986-0020.jpg" alt="Aegina" style="left:50%;top:52%;width:44%">
+      <span class="pno">13</span>
+    </div>
+    <div class="face back">
+      <img class="ph" src="photos/R1-09986-0005.jpg" alt="With waters so pristine…" style="left:6%;top:5%;width:44%">
+      <img class="ph" src="photos/R1-09986-0009.jpg" alt="… and cicadas that sing" style="left:6%;top:52%;width:44%">
+      <p class="tw" style="left:57%;top:20%;width:38%">With waters so pristine…</p>
+      <p class="tw" style="left:57%;top:68%;width:38%">… and cicadas that sing</p>
+      <span class="pno">14</span>
+    </div>
+  </div>
+
+  <!-- leaf 8 -->
+  <div class="leaf">
+    <div class="face front">
+      <img class="ph" src="photos/R1-09986-0002.jpg" alt="Aegina" style="left:6%;top:5%;width:44%">
+      <img class="ph" src="photos/R1-09986-0010.jpg" alt="Aegina" style="left:6%;top:52%;width:44%">
+      <img class="ph" src="photos/R1-09986-0014.jpg" alt="Aegina" style="left:60%;top:30%;width:28%">
+      <span class="pno">15</span>
+    </div>
+    <div class="face back">
+      <img class="ph" src="photos/R1-09986-0012.jpg" alt="We will always find our way to each other" style="left:5%;top:5%;width:44%">
+      <img class="sketch" src="photos/shell-sketch.png" alt="Pencil sketch of our pearl turbo shell" style="left:50%;top:8%;width:11%">
+      <p class="tw small" style="left:61.5%;top:14%;white-space:nowrap">← our pearl turbo shell</p>
+      <p class="tw" style="left:55%;top:33%;width:40%">We will always find our way to each other</p>
+      <img class="ph" src="photos/R1-09986-0013.jpg" alt="We will always find our way to each other" style="left:5%;top:52%;width:44%">
+      <img class="ph" src="photos/R1-09986-0011.jpg" alt="Aegina" style="left:51%;top:52%;width:44%">
+      <span class="pno">16</span>
+    </div>
+  </div>
+
+  <!-- leaf 9 -->
+  <div class="leaf">
+    <div class="face front">
+      <img class="ph" src="photos/R1-09986-0022.jpg" alt="In the sadness of goodbyes, look forward to the next adventure!" style="left:35%;top:6%;width:30%">
+      <p class="tw center" style="left:8%;top:79%;width:84%">In the sadness of goodbyes, look forward to the next adventure!</p>
+      <span class="pno">17</span>
+    </div>
+    <div class="face back cover"></div>
+  </div>
+
+</div></div>
+
+<div class="controls">
+  <button id="prev" aria-label="Previous page">‹</button>
+  <span id="where">cover</span>
+  <button id="next" aria-label="Next page">›</button>
+</div>
+<div class="hint">turn pages with ‹ › or the arrow keys &nbsp;·&nbsp; <b>click any photo to enlarge it</b></div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
+  <button class="x" id="lbclose">close ✕</button>
+  <img id="lbimg" alt="">
+  <div class="cap" id="lbcap"></div>
+</div>
+
+<!-- Zorba's Dance (Mikis Theodorakis, Zorba the Greek original soundtrack) via Spotify.
+     Press play in the player. Signed in to Spotify in this browser = full song; otherwise a 30-second preview. -->
+<div class="spotify">
+  <iframe title="Zorba's Dance on Spotify" src="https://open.spotify.com/embed/track/05m5iUK9cRHNswHNIxmS1v?utm_source=generator&theme=0"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+</div>
+
+<script>
+(() => {
+  const book = document.getElementById('book');
+  const leaves = [...book.querySelectorAll('.leaf')];
+  const n = leaves.length;
+  const FLIP_MS = 1150;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0;
+
+  /* sun glints on the water */
+  const ocean = document.getElementById('ocean');
+  for (let i = 0; i < 36; i++) {
+    const g = document.createElement('span'); g.className = 'glint';
+    g.style.left = Math.random()*100 + '%'; g.style.top = Math.random()*100 + '%';
+    g.style.animationDelay = (Math.random()*4).toFixed(2) + 's';
+    g.style.animationDuration = (2.5 + Math.random()*3).toFixed(2) + 's';
+    ocean.append(g);
+  }
+
+  /* landscape A4 pages, sized to the window */
+  function size(){
+    const ratio = 1.414;
+    let ph = Math.min(innerHeight * 0.74, (innerWidth * 0.94) / (2 * ratio));
+    ph = Math.max(ph, 150);
+    document.documentElement.style.setProperty('--ph', ph + 'px');
+    document.documentElement.style.setProperty('--pw', ph * ratio + 'px');
+  }
+  size(); addEventListener('resize', size);
+
+  /* photos become buttons that open the enlarged view */
+  const lb = document.getElementById('lightbox'), lbimg = document.getElementById('lbimg'), lbcap = document.getElementById('lbcap');
+  document.querySelectorAll('img.ph').forEach(img => {
+    const b = document.createElement('button');
+    b.className = 'ph'; b.type = 'button';
+    b.setAttribute('style', img.getAttribute('style'));
+    b.setAttribute('aria-label', 'Enlarge photo: ' + (img.alt || 'photo'));
+    img.removeAttribute('style'); img.className = '';
+    img.replaceWith(b); b.append(img);
+    b.addEventListener('click', e => { e.stopPropagation(); openPhoto(img); });
+  });
+  function openPhoto(img){
+    lbimg.src = img.src; lbimg.alt = img.alt;
+    lbcap.textContent = img.alt || '';
+    lb.classList.add('open');
+    document.getElementById('lbclose').focus();
+  }
+  const closePhoto = () => lb.classList.remove('open');
+  lb.addEventListener('click', closePhoto);
+
+  /* typewriter text */
+  const rnd = (a,b) => a + Math.random()*(b-a);
+  function wrapText(el){
+    const walk = node => {
+      [...node.childNodes].forEach(ch => {
+        if (ch.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          ch.textContent.replace(/\s+/g,' ').split(/( )/).forEach(word => {
+            if (!word) return;
+            if (word === ' ') { frag.append(' '); return; }
+            const w = document.createElement('span'); w.className = 'w';
+            for (const c of word) {
+              const s = document.createElement('span'); s.className = 'c hid'; s.textContent = c;
+              s.style.setProperty('--o', rnd(.72, 1).toFixed(2));
+              s.style.setProperty('--y', rnd(-.025, .03).toFixed(3) + 'em');
+              w.append(s);
+            }
+            frag.append(w);
+          });
+          ch.replaceWith(frag);
+        } else if (ch.nodeType === 1) walk(ch);
+      });
+    };
+    walk(el);
+  }
+  document.querySelectorAll('.tw').forEach(wrapText);
+  function typeOut(el){
+    if (el.dataset.typed) return Promise.resolve();
+    el.dataset.typed = 1;
+    const chars = [...el.querySelectorAll('.c.hid')];
+    if (reduced) { chars.forEach(c => c.classList.remove('hid')); return Promise.resolve(); }
+    el.classList.add('typing');
+    return new Promise(res => {
+      let i = 0;
+      const step = () => {
+        if (i >= chars.length) { el.classList.remove('typing'); res(); return; }
+        chars[i].classList.remove('hid');
+        const ch = chars[i].textContent; i++;
+        setTimeout(step, /[.,…!?]/.test(ch) ? 150 : rnd(25, 55));
+      };
+      step();
+    });
+  }
+  async function typeVisible(){
+    const faces = [];
+    if (cur > 0) faces.push(leaves[cur-1].querySelector('.back'));
+    if (cur < n) faces.push(leaves[cur].querySelector('.front'));
+    for (const f of faces) for (const t of f.querySelectorAll('.tw')) await typeOut(t);
+  }
+
+  /* page turning: only when asked (buttons, arrow keys, swipe) */
+  function layer(){ leaves.forEach((l,i) => { l.style.zIndex = i < cur ? i + 1 : n - i + 1; }); }
+  function state(){
+    book.classList.toggle('closed-front', cur === 0);
+    book.classList.toggle('closed-back', cur === n);
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === n;
+    const w = document.getElementById('where');
+    const L = cur > 0 ? leaves[cur-1].querySelector('.back .pno') : null;
+    const R = cur < n ? leaves[cur].querySelector('.front .pno') : null;
+    const nums = [L, R].filter(Boolean).map(x => x.textContent);
+    w.textContent = cur === 0 ? 'cover' : cur === n ? 'the end'
+      : nums.length === 2 ? `pages ${nums[0]}–${nums[1]}` : nums.length === 1 ? `page ${nums[0]}` : '';
+  }
+  let busy = false;
+  function go(dir){
+    if (busy || lb.classList.contains('open')) return;
+    const target = cur + dir;
+    if (target < 0 || target > n) return;
+    busy = true;
+    const leaf = dir > 0 ? leaves[cur] : leaves[cur-1];
+    leaf.style.zIndex = n + 5;
+    leaf.classList.add('turning');
+    leaf.classList.toggle('flipped', dir > 0);
+    cur = target; state();
+    setTimeout(typeVisible, FLIP_MS * 0.55);
+    setTimeout(() => { leaf.classList.remove('turning'); layer(); busy = false; }, FLIP_MS);
+  }
+  document.getElementById('next').onclick = () => go(1);
+  document.getElementById('prev').onclick = () => go(-1);
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closePhoto(); return; }
+    if (lb.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+  });
+  let sx = null, sy = null;
+  book.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+  book.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+  });
+
+
+  layer(); state();
+})();
+</script>
+</body>
+</html>
