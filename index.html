@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#063a55">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="robots" content="noindex, nofollow">
 <title>Greece 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +19,10 @@
     --flip: 1.15s;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%}
+  html,body{margin:0;height:100%;height:100dvh;overflow:hidden}
+  body{position:fixed;inset:0;width:100%;overscroll-behavior:none}
+  html{-webkit-text-size-adjust:100%}
+  button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   body{
     overflow:hidden;
     font-family:"Special Elite","American Typewriter","Courier Prime","Courier New",monospace;
@@ -193,6 +198,24 @@
   .lightbox .cap{margin-top:16px;color:#eaf6f8;font-size:15px;letter-spacing:.05em}
   .lightbox .x{position:absolute;top:18px;right:22px;font:inherit;font-size:15px;color:#eaf6f8;background:rgba(255,255,255,.12);
     border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 16px;cursor:pointer}
+  /* ---------------- phones & tablets ---------------- */
+  .spotify a.short{display:none}
+  @media (hover:none) and (pointer:coarse){
+    /* on phones the Spotify app plays the full song, so show just the green button */
+    .spotify{left:50%;right:auto;transform:translateX(-50%);width:auto;border-radius:999px;
+      bottom:calc(12px + env(safe-area-inset-bottom))}
+    .spotify iframe,.spotify a.long{display:none}
+    .spotify a.short{display:block;padding:10px 18px;font-size:13px;white-space:nowrap}
+    .controls button{min-width:48px;height:48px;font-size:22px}
+  }
+  @media (max-height:520px) and (orientation:landscape){
+    .controls{margin-top:10px}
+    .hint{display:none}
+    .spotify{left:auto;right:calc(10px + env(safe-area-inset-right));transform:none;width:auto;border-radius:999px;bottom:calc(8px + env(safe-area-inset-bottom))}
+    .spotify iframe,.spotify a.long{display:none}
+    .spotify a.short{display:block;padding:8px 14px;font-size:12px;white-space:nowrap}
+  }
+  body.single .hint{max-width:92vw}
   @media (prefers-reduced-motion:reduce){:root{--flip:.01s} .ocean .swell,.glint{animation:none}}
 </style>
 </head>
@@ -214,10 +237,10 @@
   <!-- leaf 1 -->
   <div class="leaf">
     <div class="face front">
-      <p class="tw" style="left:6%;top:19%">patiently waiting</p>
-      <img class="ph" src="photos/R1-09987-0000.jpg" alt="patiently waiting" style="left:6%;top:30%;width:48%">
-      <img class="ph" src="photos/R1-09987-0002.jpg" alt="Hello, Mama!" style="left:62%;top:7%;width:30%">
-      <p class="tw" style="left:62%;top:76%">Hello, Mama!</p>
+      <p class="tw" style="left:6%;top:29%">patiently waiting</p>
+      <img class="ph" src="photos/R1-09987-0000.jpg" alt="patiently waiting" style="left:6%;top:40%;width:46%">
+      <img class="ph" src="photos/R1-09987-0002.jpg" alt="Hello, Mama!" style="left:56%;top:5%;width:37.6%">
+      <p class="tw" style="left:56%;top:86%">Hello, Mama!</p>
       <span class="pno">1</span>
     </div>
     <div class="face back">
@@ -233,15 +256,15 @@
   <div class="leaf">
     <div class="face front">
       <p class="tw" style="left:7%;top:7%;width:86%">Athens – a gritty, concrete heavy city with attitude</p>
-      <img class="ph" src="photos/R1-09987-0006.jpg" alt="Athens" style="left:15%;top:22%;width:31%">
-      <img class="ph" src="photos/R1-09986-0017.jpg" alt="Athens" style="left:54%;top:22%;width:31%">
+      <img class="ph" src="photos/R1-09987-0006.jpg" alt="Athens" style="left:11%;top:20%;width:35%">
+      <img class="ph" src="photos/R1-09986-0017.jpg" alt="Athens" style="left:54%;top:20%;width:35%">
       <span class="pno">3</span>
     </div>
     <div class="face back">
       <img class="ph" src="photos/R1-09987-0017.jpg" alt="The Parthenon at night" style="left:5%;top:6%;width:40%">
       <img class="ph" src="photos/R1-09987-0029.jpg" alt="Athens" style="left:5%;top:52%;width:40%">
       <p class="tw" style="left:52%;top:8%;width:44%">A melange of the ancient…</p>
-      <img class="ph" src="photos/R1-09987-0032.jpg" alt="A melange of the ancient…" style="left:56%;top:22%;width:28%">
+      <img class="ph" src="photos/R1-09987-0032.jpg" alt="A melange of the ancient…" style="left:56%;top:23.2%;width:32%">
       <span class="pno">4</span>
     </div>
   </div>
@@ -250,7 +273,7 @@
   <div class="leaf">
     <div class="face front">
       <p class="tw" style="left:6%;top:8%;width:44%">… and modern ruins</p>
-      <img class="ph" src="photos/R1-09987-0033.jpg" alt="… and modern ruins" style="left:13%;top:22%;width:28%">
+      <img class="ph" src="photos/R1-09987-0033.jpg" alt="… and modern ruins" style="left:10%;top:23.2%;width:32%">
       <img class="ph" src="photos/R1-09987-0028.jpg" alt="Athens" style="left:55%;top:6%;width:40%">
       <img class="ph" src="photos/R1-09987-0004.jpg" alt="Athens" style="left:55%;top:52%;width:40%">
       <span class="pno">5</span>
@@ -271,8 +294,8 @@
   <!-- leaf 4 -->
   <div class="leaf">
     <div class="face front">
-      <img class="ph" src="photos/R1-09987-0020.jpg" alt="take care of yourself, sleep head, rest" style="left:22%;top:14%;width:56%">
-      <p class="tw center" style="left:10%;top:72%;width:80%">take care of yourself, sleep head, rest</p>
+      <img class="ph" src="photos/R1-09987-0020.jpg" alt="take care of yourself, sleepy head, rest" style="left:22%;top:14%;width:56%">
+      <p class="tw center" style="left:10%;top:72%;width:80%">take care of yourself, sleepy head, rest</p>
       <span class="pno">7</span>
     </div>
     <div class="face back">
@@ -295,8 +318,8 @@
   <div class="leaf">
     <div class="face front">
       <p class="tw" style="left:6%;top:8%;width:52%">… and to have an obsession with felines…</p>
-      <img class="ph" src="photos/R1-09986-0004.jpg" alt="… and to have an obsession with felines…" style="left:6%;top:30%;width:50%">
-      <img class="ph" src="photos/R1-09986-0015.jpg" alt="… and to have an obsession with felines…" style="left:63%;top:12%;width:30%">
+      <img class="ph" src="photos/R1-09986-0004.jpg" alt="… and to have an obsession with felines…" style="left:5%;top:40%;width:50%">
+      <img class="ph" src="photos/R1-09986-0015.jpg" alt="… and to have an obsession with felines…" style="left:59%;top:12.4%;width:36%">
       <span class="pno">9</span>
     </div>
     <div class="face back">
@@ -317,8 +340,8 @@
     </div>
     <div class="face back">
       <p class="tw" style="left:8%;top:8%;width:84%">Aegina – a romantic little island…</p>
-      <img class="ph" src="photos/R1-09986-0018.jpg" alt="Aegina" style="left:9%;top:22%;width:31%">
-      <img class="ph" src="photos/R1-09986-0016.jpg" alt="Aegina" style="left:52%;top:22%;width:31%">
+      <img class="ph" src="photos/R1-09986-0018.jpg" alt="Aegina" style="left:9%;top:20%;width:35%">
+      <img class="ph" src="photos/R1-09986-0016.jpg" alt="Aegina" style="left:53%;top:20%;width:35%">
       <span class="pno">12</span>
     </div>
   </div>
@@ -326,7 +349,7 @@
   <!-- leaf 7 -->
   <div class="leaf">
     <div class="face front">
-      <img class="ph" src="photos/R1-09987-0026.jpg" alt="Aegina" style="left:9%;top:10%;width:31%">
+      <img class="ph" src="photos/R1-09987-0026.jpg" alt="Aegina" style="left:5%;top:5%;width:42.5%">
       <img class="ph" src="photos/R1-09987-0007.jpg" alt="Aegina" style="left:50%;top:5%;width:44%">
       <img class="ph" src="photos/R1-09986-0020.jpg" alt="Aegina" style="left:50%;top:52%;width:44%">
       <span class="pno">13</span>
@@ -345,7 +368,7 @@
     <div class="face front">
       <img class="ph" src="photos/R1-09986-0002.jpg" alt="Aegina" style="left:6%;top:5%;width:44%">
       <img class="ph" src="photos/R1-09986-0010.jpg" alt="Aegina" style="left:6%;top:52%;width:44%">
-      <img class="ph" src="photos/R1-09986-0014.jpg" alt="Aegina" style="left:60%;top:30%;width:28%">
+      <img class="ph" src="photos/R1-09986-0014.jpg" alt="Aegina" style="left:52%;top:5%;width:42.5%">
       <span class="pno">15</span>
     </div>
     <div class="face back">
@@ -362,8 +385,8 @@
   <!-- leaf 9 -->
   <div class="leaf">
     <div class="face front">
-      <img class="ph" src="photos/R1-09986-0022.jpg" alt="In the sadness of goodbyes, look forward to the next adventure!" style="left:35%;top:6%;width:30%">
-      <p class="tw center" style="left:8%;top:79%;width:84%">In the sadness of goodbyes, look forward to the next adventure!</p>
+      <img class="ph" src="photos/R1-09986-0022.jpg" alt="In the sadness of goodbyes, look forward to the next adventure!" style="left:33.5%;top:5%;width:33%">
+      <p class="tw center" style="left:8%;top:80%;width:84%">In the sadness of goodbyes, look forward to the next adventure!</p>
       <span class="pno">17</span>
     </div>
     <div class="face back cover"></div>
@@ -376,7 +399,7 @@
   <span id="where">cover</span>
   <button id="next" aria-label="Next page">›</button>
 </div>
-<div class="hint">turn pages with ‹ › or the arrow keys &nbsp;·&nbsp; <b>click any photo to enlarge it</b></div>
+<div class="hint" id="hint">turn pages with ‹ › or the arrow keys &nbsp;·&nbsp; <b>click any photo to enlarge it</b></div>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
   <button class="x" id="lbclose">close ✕</button>
@@ -389,7 +412,8 @@
 <div class="spotify">
   <iframe title="Zorba's Dance on Spotify" src="https://open.spotify.com/embed/track/05m5iUK9cRHNswHNIxmS1v?utm_source=generator&theme=0"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  <a href="https://open.spotify.com/track/05m5iUK9cRHNswHNIxmS1v" target="_blank" rel="noopener">▶ play the full song in Spotify</a>
+  <a href="https://open.spotify.com/track/05m5iUK9cRHNswHNIxmS1v" target="_blank" rel="noopener" class="long">▶ play the full song in Spotify</a>
+  <a href="https://open.spotify.com/track/05m5iUK9cRHNswHNIxmS1v" target="_blank" rel="noopener" class="short">♪ play Zorba’s Dance in Spotify</a>
 </div>
 
 <script>
@@ -412,14 +436,30 @@
   }
 
   /* landscape A4 pages, sized to the window */
+  /* phones held upright show one page at a time; everything else shows the open spread */
+  const touch = matchMedia('(hover:none) and (pointer:coarse)').matches;
+  let single = false, side = 'R';
+  let ready = false;
   function size(){
-    const ratio = 1.414;
-    let ph = Math.min(innerHeight * 0.74, (innerWidth * 0.94) / (2 * ratio));
-    ph = Math.max(ph, 150);
+    const ratio = 1.414, W = innerWidth, H = innerHeight;
+    const wasSingle = single;
+    single = W < 760 && H > W;
+    document.body.classList.toggle('single', single);
+    let ph;
+    if (single) {
+      ph = Math.min((W * 0.94) / ratio, H * 0.6);
+    } else {
+      const reserve = H < 520 ? 100 : (touch ? 150 : 170);
+      ph = Math.min(H * 0.74, H - reserve, (W * 0.94) / (2 * ratio));
+    }
+    ph = Math.max(ph, 120);
     document.documentElement.style.setProperty('--ph', ph + 'px');
     document.documentElement.style.setProperty('--pw', ph * ratio + 'px');
+    if (ready && single !== wasSingle) { side = cur === 0 ? 'R' : 'L'; skipBlank(1); state(); }
   }
   size(); addEventListener('resize', size);
+  addEventListener('orientationchange', () => setTimeout(size, 250));
+  if (touch) document.getElementById('hint').innerHTML = 'swipe or tap ‹ › to turn &nbsp;·&nbsp; <b>tap any photo to enlarge it</b>';
 
   /* photos become buttons that open the enlarged view */
   const lb = document.getElementById('lightbox'), lbimg = document.getElementById('lbimg'), lbcap = document.getElementById('lbcap');
@@ -493,12 +533,23 @@
 
   /* page turning: only when asked (buttons, arrow keys, swipe) */
   function layer(){ leaves.forEach((l,i) => { l.style.zIndex = i < cur ? i + 1 : n - i + 1; }); }
+  const visibleFace = () => side === 'R' ? (cur < n ? leaves[cur].querySelector('.front') : null)
+                                         : (cur > 0 ? leaves[cur-1].querySelector('.back') : null);
   function state(){
+    const w = document.getElementById('where');
+    if (single) {
+      book.classList.toggle('closed-front', side === 'R');
+      book.classList.toggle('closed-back', side === 'L');
+      document.getElementById('prev').disabled = cur === 0 && side === 'R';
+      document.getElementById('next').disabled = cur === n;
+      const f = visibleFace(), p = f && f.querySelector('.pno');
+      w.textContent = cur === 0 ? 'cover' : cur === n ? 'the end' : p ? 'page ' + p.textContent : '';
+      return;
+    }
     book.classList.toggle('closed-front', cur === 0);
     book.classList.toggle('closed-back', cur === n);
     document.getElementById('prev').disabled = cur === 0;
     document.getElementById('next').disabled = cur === n;
-    const w = document.getElementById('where');
     const L = cur > 0 ? leaves[cur-1].querySelector('.back .pno') : null;
     const R = cur < n ? leaves[cur].querySelector('.front .pno') : null;
     const nums = [L, R].filter(Boolean).map(x => x.textContent);
@@ -506,8 +557,39 @@
       : nums.length === 2 ? `pages ${nums[0]}–${nums[1]}` : nums.length === 1 ? `page ${nums[0]}` : '';
   }
   let busy = false;
+  const turning = new Set();
+  /* one step in single-page mode: flip the leaf, or just slide to the facing page */
+  function step(dir){
+    if (dir > 0) {
+      if (cur >= n) return false;
+      if (side === 'R') { flipLeaf(cur, true); cur++; side = 'L'; } else side = 'R';
+    } else {
+      if (side === 'L') { flipLeaf(cur-1, false); cur--; side = 'R'; }
+      else { if (cur <= 0) return false; side = 'L'; }
+    }
+    return true;
+  }
+  function skipBlank(dir){ // don't stop on the plain inside-cover page on a phone
+    let f = visibleFace();
+    while (single && f && f.classList.contains('endpaper') && step(dir)) f = visibleFace();
+  }
+  function flipLeaf(i, fwd){
+    const leaf = leaves[i];
+    leaf.style.zIndex = n + 5;
+    leaf.classList.add('turning');
+    leaf.classList.toggle('flipped', fwd);
+    turning.add(leaf);
+  }
   function go(dir){
     if (busy || lb.classList.contains('open')) return;
+    if (single) {
+      if (!step(dir)) return;
+      skipBlank(dir);
+      busy = true; state();
+      setTimeout(typeVisible, FLIP_MS * 0.55);
+      setTimeout(() => { turning.forEach(l => l.classList.remove('turning')); turning.clear(); layer(); busy = false; }, FLIP_MS);
+      return;
+    }
     const target = cur + dir;
     if (target < 0 || target > n) return;
     busy = true;
@@ -528,14 +610,15 @@
     if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
   });
   let sx = null, sy = null;
-  book.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
-  book.addEventListener('touchend', e => {
-    if (sx === null) return;
+  addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive:true});
+  addEventListener('touchend', e => {
+    if (sx === null || lb.classList.contains('open')) { sx = null; return; }
     const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
   });
 
 
+  ready = true;
   layer(); state();
 })();
 </script>
