@@ -176,6 +176,9 @@
   .spotify{position:fixed;left:18px;bottom:18px;width:300px;z-index:20;border-radius:12px;overflow:hidden;
     box-shadow:0 8px 24px rgba(0,20,35,.5)}
   .spotify iframe{display:block;width:100%;height:80px;border:0}
+  .spotify a{display:block;text-align:center;padding:7px 10px;background:#1db954;color:#06210f;text-decoration:none;
+    font-size:12.5px;letter-spacing:.04em}
+  .spotify a:hover{background:#22d061}
   @media (max-width:700px){.spotify{left:50%;transform:translateX(-50%);bottom:10px;width:min(300px,92vw)}}
   .hint{margin-top:12px;color:rgba(234,246,248,.85);font-size:12.5px;letter-spacing:.08em;text-shadow:0 1px 3px rgba(0,0,0,.6);text-align:center;padding:0 12px}
   .hint b{font-weight:normal;border-bottom:1px solid rgba(234,246,248,.5)}
@@ -268,7 +271,8 @@
   <!-- leaf 4 -->
   <div class="leaf">
     <div class="face front">
-      <img class="ph" src="photos/R1-09987-0020.jpg" alt="Athens at night" style="left:22%;top:20%;width:56%">
+      <img class="ph" src="photos/R1-09987-0020.jpg" alt="take care of yourself, sleep head, rest" style="left:22%;top:14%;width:56%">
+      <p class="tw center" style="left:10%;top:72%;width:80%">take care of yourself, sleep head, rest</p>
       <span class="pno">7</span>
     </div>
     <div class="face back">
@@ -381,10 +385,11 @@
 </div>
 
 <!-- Zorba's Dance (Mikis Theodorakis, Zorba the Greek original soundtrack) via Spotify.
-     Press play in the player. Signed in to Spotify in this browser = full song; otherwise a 30-second preview. -->
+     Signed in to Spotify in this browser = full song in the player; the green link opens the full song in the Spotify app. -->
 <div class="spotify">
   <iframe title="Zorba's Dance on Spotify" src="https://open.spotify.com/embed/track/05m5iUK9cRHNswHNIxmS1v?utm_source=generator&theme=0"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <a href="https://open.spotify.com/track/05m5iUK9cRHNswHNIxmS1v" target="_blank" rel="noopener">▶ play the full song in Spotify</a>
 </div>
 
 <script>
